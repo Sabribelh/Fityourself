@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Fit Yourself - Chiara Boni (IT)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f5f0;
+            color: #333;
+            padding: 30px;
+        }
+        h1 {
+            color: #b07aa1;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .button {
+            background-color: #d6a4c7;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #risultato {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #b07aa1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fit Yourself</h1>
+    <form>
+        <div class="question">
+            <label for="height">1. Qual è la tua altezza (in cm)?</label>
+            <input type="text" id="height" name="height">
+        </div>
+        <div class="question">
+            <label for="weight">2. Qual è il tuo peso (in kg)?</label>
+            <input type="text" id="weight" name="weight">
+        </div>
+        <div class="question">
+            <label for="body_shape">3. Che tipo di corporatura hai?</label>
+            <select id="body_shape" name="body_shape">
+                <option value="slim">Snella</option>
+                <option value="regular">Regolare</option>
+                <option value="curvy">Formosa</option>
+            </select>
+        </div>
+        <div class="question">
+            <label for="usual_size">4. Che taglia indossi solitamente per i vestiti Chiara Boni?</label>
+            <select id="usual_size" name="usual_size">
+                <option value="36">36</option>
+                <option value="38">38</option>
+                <option value="40">40</option>
+                <option value="42">42</option>
+                <option value="44">44</option>
+                <option value="46">46</option>
+                <option value="48">48</option>
+                <option value="50">50</option>
+                <option value="52">52</option>
+                <option value="54">54</option>
+            </select>
+        </div>
+        <div class="question">
+            <label for="fit_preference">5. Come preferisci che i vestiti vestano?</label>
+            <select id="fit_preference" name="fit_preference">
+                <option value="tight">Aderente</option>
+                <option value="normal">Normale</option>
+                <option value="loose">Morbido</option>
+            </select>
+        </div>
+        <div class="question">
+            <label for="age_range">6. Fascia d’età</label>
+            <select id="age_range" name="age_range">
+                <option value="under_25">Meno di 25</option>
+                <option value="25_34">25-34</option>
+                <option value="35_44">35-44</option>
+                <option value="45_54">45-54</option>
+                <option value="55_plus">55 o più</option>
+            </select>
+        </div>
+        <button class="button" type="submit">Scopri la tua taglia ideale</button>
+    </form>
+    <div id="risultato"></div>
+    <script>
+    document.querySelector("form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const height = parseInt(document.getElementById("height").value);
+        const weight = parseInt(document.getElementById("weight").value);
+        const bodyShape = document.getElementById("body_shape").value;
+        const usualSize = parseInt(document.getElementById("usual_size").value);
+        const fitPref = document.getElementById("fit_preference").value;
+        let suggestedSize = usualSize;
+        if (bodyShape === "curvy" || weight > 70) { suggestedSize += 2; }
+        else if (bodyShape === "slim" && weight < 55) { suggestedSize -= 2; }
+        if (fitPref === "tight") { suggestedSize -= 2; }
+        else if (fitPref === "loose") { suggestedSize += 2; }
+        if (suggestedSize < 36) suggestedSize = 36;
+        if (suggestedSize > 54) suggestedSize = 54;
+        document.getElementById("risultato").innerText =
+            "La tua taglia consigliata per Chiara Boni è: " + suggestedSize;
+    });
+    </script>
+</body>
+</html>
